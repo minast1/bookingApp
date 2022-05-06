@@ -76,7 +76,7 @@ export default function Register() {
 
             <SubmitButton title="Register" formId="register" />
             <Grid container>
-              <Grid item sx={{ px: 4 }}>
+              <Grid item sx={{ px: 2, ml: 2 }}>
                 <Link to="/" style={{ color: "blue", fontSize: 13 }}>
                   {"Already have an account? Sign In"}
                 </Link>
@@ -90,7 +90,7 @@ export default function Register() {
 }
 
 export const action: ActionFunction = async ({ request, context }) => {
-  await authenticator.authenticate("admin", request, {
+  await authenticator.authenticate("user", request, {
     successRedirect: "/dashboard/",
     failureRedirect: "/register",
   });

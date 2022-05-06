@@ -45,7 +45,7 @@ export default function Login() {
             <SubmitButton formId="signIn" title="SignIn" />
           </ValidatedForm>
           <Grid container>
-            <Grid item sx={{ px: 5 }}>
+            <Grid item sx={{ px: 2, ml: 2 }}>
               <Link style={{ color: "blue", fontSize: 13 }} to="/register">
                 {"Don't have an account ? Register"}
               </Link>
@@ -58,7 +58,7 @@ export default function Login() {
 }
 
 export const action: ActionFunction = async ({ request, context }) => {
-  return await authenticator.authenticate("admin", request, {
+  return await authenticator.authenticate("user", request, {
     successRedirect: "/dashboard/",
     failureRedirect: "/",
   });
