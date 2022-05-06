@@ -37,12 +37,10 @@ export const criminalValidator = withZod(
      
   }));
 
-  export const policeValidator = withZod(
-    z.object({
-      name: z.string().nonempty("* This field is required"),
-      email: z.string().nonempty("* This field is required").email({ message: "Please enter a valid email address" }),
-      phone: z.string().nonempty("* This field is required"),
-      badge_number: z.string().refine((val) => !Number.isNaN(parseInt(val, 10)), {
-        message: "This field is required "
-      })
-    }))
+export const bookingValidator = withZod(
+  z.object({
+    start_city: z.string({ required_error: '* This field is required' }).nonempty('* This field is required' ),
+    destination: z.string({ required_error: '* This field is required' }).nonempty('* This field is required' )
+    })
+  )
+ 

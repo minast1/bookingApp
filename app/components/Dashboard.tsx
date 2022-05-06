@@ -12,6 +12,7 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
+import Tracker from "./Tracker";
 
 type Props = {
   children: React.ReactNode;
@@ -51,6 +52,7 @@ const Dashboard: React.FC<Props> = ({ children }) => {
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4 }}>
+            <Tracker />
             {children}
           </Container>
         </Box>
