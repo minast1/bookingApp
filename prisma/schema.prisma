@@ -19,3 +19,19 @@ model User {
   password  String   @unique
   createdAt DateTime @default(now())
 }
+
+model Booking {
+  id          String   @id @default(cuid())
+  startCity   String   @db.VarChar(100)
+  destination String   @db.VarChar(100)
+  price       Decimal  @db.Decimal(4, 2)
+  date        DateTime
+
+}
+
+model Bus {
+  id String @id @default(cuid())
+
+  seats           Int
+  available_seats Int
+}

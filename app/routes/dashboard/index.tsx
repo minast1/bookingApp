@@ -12,7 +12,7 @@ const IndexPage = () => {
   return (
     <Card sx={{ mb: 10, mt: 3 }} elevation={12}>
       <Box display="flex" alignItems="center" ml={2} mt={2}>
-        <Avatar src="/logo.png" alt="" sx={{ width: 100, height: 100 }} />
+        <Avatar src="/airport.png" alt="" sx={{ width: 100, height: 100 }} />
         <Box flexGrow={1} />
         <Link
           to="/dashboard/create"
