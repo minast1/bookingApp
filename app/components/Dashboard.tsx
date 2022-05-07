@@ -15,9 +15,9 @@ import Tracker from "./Tracker";
 import Fab from "@mui/material/Fab";
 import { styled } from "@mui/material/styles";
 import AddIcon from "@mui/icons-material/Add";
-import { useRouteData } from "remix-utils";
-import type { Booking, User } from "@prisma/client";
 import { useFetcher, useLoaderData } from "@remix-run/react";
+import type { dataType } from "~/routes/dashboard";
+import type { Booking } from "@prisma/client";
 
 type Props = {
   children: React.ReactNode;
@@ -34,8 +34,8 @@ const StyledFab = styled(Fab)({
 
 const Dashboard: React.FC<Props> = ({ children }) => {
   const theme = useTheme();
-  const user = useLoaderData<Omit<User, "password" | "createdAt">>();
-  console.log(user);
+  const data = useLoaderData<dataType>();
+  const currentBooking: Booking = data.bookings[0];
   const fetcher = useFetcher();
 
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -70,7 +70,7 @@ const Dashboard: React.FC<Props> = ({ children }) => {
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4 }}>
-            <Tracker />
+            <Tracker booking={currentBooking} />
             {children}
           </Container>
         </Box>
@@ -88,7 +88,7 @@ const Dashboard: React.FC<Props> = ({ children }) => {
               aria-label="add"
               onClick={() => {
                 fetcher.submit(
-                  { userId: user.id },
+                  { userId: data.user.id },
                   { method: "post", action: "/dashboard/latestBooking" }
                 );
               }}

@@ -9,13 +9,14 @@ import { authenticator } from "~/lib/auth.server";
 export type userType = Omit<User, "password" | "createdAt">;
 
 export type dataType = {
-  user: userType & { bookings: Booking[] };
+  user: userType;
+  bookings: Booking[];
 };
 const DashboardLayout = () => {
   const data = useLoaderData<dataType>();
   return (
     <Dashboard>
-      <Outlet context={data.user} />
+      <Outlet context={data} />
     </Dashboard>
   );
 };

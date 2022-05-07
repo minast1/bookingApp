@@ -11,6 +11,7 @@ import type { StepIconProps } from "@mui/material/StepIcon";
 import DepartureBoardOutlinedIcon from "@mui/icons-material/DepartureBoardOutlined";
 import AirlineSeatReclineExtraIcon from "@mui/icons-material/AirlineSeatReclineExtra";
 import AddCardIcon from "@mui/icons-material/AddCard";
+import type { Booking } from "@prisma/client";
 
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -78,7 +79,18 @@ function ColorlibStepIcon(props: StepIconProps) {
 
 const steps = ["Select Route", "Select Seat", "Make Payment"];
 
-const Tracker = () => {
+const Tracker = ({ booking }: { booking: Booking }) => {
+  const getActiveStep = (booking: Booking): number => {
+    const { start_city, seats, paid } = booking;
+    return start_city
+      ? 0
+      : seats && start_city
+      ? 1
+      : seats && paid && start_city
+      ? 2
+      : -1;
+  };
+
   return (
     <Paper
       square
@@ -92,7 +104,7 @@ const Tracker = () => {
     >
       <Stepper
         alternativeLabel
-        activeStep={1}
+        activeStep={getActiveStep(booking)}
         connector={<ColorlibConnector />}
       >
         {steps.map((label) => (

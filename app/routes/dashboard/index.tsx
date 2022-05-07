@@ -14,7 +14,9 @@ import { ValidatedForm } from "remix-validated-form";
 import Paper from "@mui/material/Paper";
 import { FormInputDropdown } from "~/components/FormInputDropdown";
 import { useOutletContext } from "@remix-run/react";
-import type { User } from "@prisma/client";
+import type { Session } from "@prisma/client";
+import { updateBooking } from "~/controllers/BookingController";
+import type { dataType } from "../dashboard";
 //import { getSession } from "~/lib/session.server";
 
 const sessions = [
@@ -23,7 +25,7 @@ const sessions = [
   { label: "Evening", value: "EVENING" },
 ];
 const IndexPage = () => {
-  const user = useOutletContext<Omit<User, "password" | "createdAt">>();
+  const data = useOutletContext<dataType>();
 
   return (
     <>
@@ -48,8 +50,8 @@ const IndexPage = () => {
             {" "}
             <FormInputText name="start_city" label="From" sx={{ mb: 1 }} />
             <FormInputText
-              name="userId"
-              value={user.id}
+              name="Id"
+              value={data.bookings[0].id}
               sx={{ display: "none" }}
             />
             <FormInputText
@@ -114,11 +116,17 @@ export let loader: LoaderFunction = async ({ request }) => {
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
-  const start = formData.get("start_city") as string;
+  const start_city = formData.get("start_city") as string;
   const destination = formData.get("destination") as string;
   const date = new Date(formData.get("date") as string);
-  const session = formData.get("session");
-  const userId = formData.get("userId");
-  console.log({ start, destination, date, session, userId });
-  return null;
+  const session = formData.get("session") as Session;
+  const Id = formData.get("Id") as string;
+
+  return await updateBooking({
+    start_city,
+    destination,
+    date,
+    session,
+    Id,
+  });
 };
