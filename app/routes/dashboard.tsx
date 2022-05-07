@@ -1,9 +1,12 @@
-import type { Booking, User } from "@prisma/client";
+import type { Booking, Session, User } from "@prisma/client";
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import React from "react";
 import Dashboard from "~/components/Dashboard";
-import { getCurrentBooking } from "~/controllers/BookingController";
+import {
+  getCurrentBooking,
+  updateBooking,
+} from "~/controllers/BookingController";
 import { authenticator } from "~/lib/auth.server";
 
 export type userType = Omit<User, "password" | "createdAt">;
@@ -23,9 +26,27 @@ const DashboardLayout = () => {
 
 export default DashboardLayout;
 export const action: ActionFunction = async ({ request }) => {
-  //let formData = await request.formData();
+  const formData = await request.formData();
+  const button = formData.get("button") as string;
+  switch (button) {
+    case "route":
+      const start_city = formData.get("start_city") as string;
+      const destination = formData.get("destination") as string;
+      const date = new Date(formData.get("date") as string);
+      const session = formData.get("session") as Session;
+      const Id = formData.get("Id") as string;
 
-  return await authenticator.logout(request, { redirectTo: "/" });
+      return await updateBooking({
+        start_city,
+        destination,
+        date,
+        session,
+        Id,
+      });
+
+    default:
+      return await authenticator.logout(request, { redirectTo: "/" });
+  }
 };
 
 export const loader: LoaderFunction = async ({ request }) => {

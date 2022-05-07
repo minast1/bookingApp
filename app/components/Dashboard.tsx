@@ -35,7 +35,7 @@ const StyledFab = styled(Fab)({
 const Dashboard: React.FC<Props> = ({ children }) => {
   const theme = useTheme();
   const data = useLoaderData<dataType>();
-  const currentBooking: Booking = data.bookings[0];
+  const currentBooking: Booking | null = data.bookings && data.bookings[0];
   const fetcher = useFetcher();
 
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -70,7 +70,7 @@ const Dashboard: React.FC<Props> = ({ children }) => {
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4 }}>
-            <Tracker booking={currentBooking} />
+            {currentBooking && <Tracker booking={currentBooking} />}
             {children}
           </Container>
         </Box>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -14,9 +15,8 @@ import { ValidatedForm } from "remix-validated-form";
 import Paper from "@mui/material/Paper";
 import { FormInputDropdown } from "~/components/FormInputDropdown";
 import { useOutletContext } from "@remix-run/react";
-import type { Session } from "@prisma/client";
-import { updateBooking } from "~/controllers/BookingController";
 import type { dataType } from "../dashboard";
+import { useActionData, useNavigate } from "@remix-run/react";
 //import { getSession } from "~/lib/session.server";
 
 const sessions = [
@@ -26,6 +26,12 @@ const sessions = [
 ];
 const IndexPage = () => {
   const data = useOutletContext<dataType>();
+  const navigate = useNavigate();
+  const confirmReservation = useActionData();
+
+  React.useEffect(() => {
+    confirmReservation && navigate("/dashboard/selectSeats", { replace: true });
+  }, [confirmReservation]);
 
   return (
     <>
@@ -41,6 +47,7 @@ const IndexPage = () => {
         <CardContent sx={{ borderTop: "1px solid lightgray" }}>
           <ValidatedForm
             method="post"
+            action="/dashboard"
             defaultValues={{ session: "MORNING" }}
             style={{ display: "flex", flexDirection: "column" }}
             resetAfterSubmit
@@ -51,7 +58,7 @@ const IndexPage = () => {
             <FormInputText name="start_city" label="From" sx={{ mb: 1 }} />
             <FormInputText
               name="Id"
-              value={data.bookings[0].id}
+              value={data.bookings[0]?.id}
               sx={{ display: "none" }}
             />
             <FormInputText
@@ -66,7 +73,7 @@ const IndexPage = () => {
               options={sessions}
             />
             <FormInputDate name="date" />
-            <SubmitButton title="Continue" formId="booking" />
+            <SubmitButton value="route" title="Continue" formId="booking" />
           </ValidatedForm>
         </CardContent>
         <CardActions disableSpacing></CardActions>
@@ -114,19 +121,6 @@ export let loader: LoaderFunction = async ({ request }) => {
   return null;
 };
 
-export const action: ActionFunction = async ({ request }) => {
-  const formData = await request.formData();
-  const start_city = formData.get("start_city") as string;
-  const destination = formData.get("destination") as string;
-  const date = new Date(formData.get("date") as string);
-  const session = formData.get("session") as Session;
-  const Id = formData.get("Id") as string;
-
-  return await updateBooking({
-    start_city,
-    destination,
-    date,
-    session,
-    Id,
-  });
+export let action: ActionFunction = async ({ request }) => {
+  return null;
 };

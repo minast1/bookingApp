@@ -80,6 +80,8 @@ function ColorlibStepIcon(props: StepIconProps) {
 const steps = ["Select Route", "Select Seat", "Make Payment"];
 
 const Tracker = ({ booking }: { booking: Booking }) => {
+  //React.useEffect(() => {}, [booking]);
+
   const getActiveStep = (booking: Booking): number => {
     const { start_city, seats, paid } = booking;
     return start_city
