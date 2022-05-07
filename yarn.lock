@@ -6042,6 +6042,17 @@ remix-utils@^2.2.0:
     type-fest "^2.5.2"
     uuid "^8.3.2"
 
+remix-utils@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/remix-utils/-/remix-utils-3.1.0.tgz#bfb4a2aecfdc5919550d2ead2e34dfc457701c3f"
+  integrity sha512-Fmfxai+Z4RXaVMRxLCEKKA/mXhLYYWffzzvBg5v+eoBc0UAUs1PUcwnU9ssaoFjexXck9r3l3/sawa8myv1XPg==
+  dependencies:
+    intl-parse-accept-language "^1.0.0"
+    is-ip "^3.1.0"
+    schema-dts "^1.1.0"
+    type-fest "^2.5.2"
+    uuid "^8.3.2"
+
 remix-validated-form@^4.3.0:
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/remix-validated-form/-/remix-validated-form-4.4.1.tgz#3a25f346ac80b569667d845daf8e0c78e6d99531"

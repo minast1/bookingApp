@@ -12,11 +12,22 @@ import SubmitButton from "~/components/SubmitButton";
 import { bookingValidator } from "~/lib/validatorSchema";
 import { ValidatedForm } from "remix-validated-form";
 import Paper from "@mui/material/Paper";
+import { FormInputDropdown } from "~/components/FormInputDropdown";
+import { useOutletContext } from "@remix-run/react";
+import type { User } from "@prisma/client";
+//import { getSession } from "~/lib/session.server";
 
+const sessions = [
+  { label: "Morning", value: "MORNING" },
+  { label: "Afternoon", value: "AFTERNOON" },
+  { label: "Evening", value: "EVENING" },
+];
 const IndexPage = () => {
+  const user = useOutletContext<Omit<User, "password" | "createdAt">>();
+
   return (
     <>
-      <Card sx={{ mb: 5, mt: 3 }} elevation={15}>
+      <Card sx={{ mb: 5, mt: 3, backgroundColor: "white" }} elevation={15}>
         <Box display="flex" alignItems="center" ml={2} mt={2}>
           <Typography sx={{ fontWeight: "bold" }}>
             Please Provide the Route Details
@@ -28,17 +39,29 @@ const IndexPage = () => {
         <CardContent sx={{ borderTop: "1px solid lightgray" }}>
           <ValidatedForm
             method="post"
+            defaultValues={{ session: "MORNING" }}
             style={{ display: "flex", flexDirection: "column" }}
             resetAfterSubmit
             id="booking"
             validator={bookingValidator}
           >
             {" "}
-            <FormInputText name="start_city" label="From" sx={{ mb: 2 }} />
+            <FormInputText name="start_city" label="From" sx={{ mb: 1 }} />
+            <FormInputText
+              name="userId"
+              value={user.id}
+              sx={{ display: "none" }}
+            />
             <FormInputText
               name="destination"
               label="Destination"
               sx={{ my: 2, mr: 2 }}
+            />
+            <FormInputDropdown
+              name="session"
+              label="Session"
+              sx={{ mb: 2 }}
+              options={sessions}
             />
             <FormInputDate name="date" />
             <SubmitButton title="Continue" formId="booking" />
@@ -56,11 +79,11 @@ const IndexPage = () => {
           backgroundSize: "cover",
           background:
             'linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/vip.jpg")',
-          height: 200,
+          height: 150,
           mb: 2,
           mt: 5,
         }}
-        elevation={12}
+        elevation={15}
       >
         <Box
           display="flex"
@@ -83,10 +106,19 @@ const IndexPage = () => {
 export default IndexPage;
 
 export let loader: LoaderFunction = async ({ request }) => {
-  // const auth_session = await getSession(request.headers.get("cookie"));
+  //const session = await getSession(request.headers.get("cookie"));
+  //const user = session.get("user");
+
   return null;
 };
 
 export const action: ActionFunction = async ({ request }) => {
+  const formData = await request.formData();
+  const start = formData.get("start_city") as string;
+  const destination = formData.get("destination") as string;
+  const date = new Date(formData.get("date") as string);
+  const session = formData.get("session");
+  const userId = formData.get("userId");
+  console.log({ start, destination, date, session, userId });
   return null;
 };

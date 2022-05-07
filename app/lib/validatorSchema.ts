@@ -37,8 +37,10 @@ export const criminalValidator = withZod(
      
   }));
 
+  export const sessions = ["MORNING", "AFTERNOON", "EVENING"] as const;
 export const bookingValidator = withZod(
   z.object({
+    session: z.enum(sessions),
     start_city: z.string({ required_error: '* This field is required' }).nonempty('* This field is required' ),
     destination: z.string({ required_error: '* This field is required' }).nonempty('* This field is required' )
     })

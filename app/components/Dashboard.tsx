@@ -9,17 +9,35 @@ import AccountMenu from "./AccountMenu";
 import AppBar from "@mui/material/AppBar";
 import { useMediaQuery, useTheme } from "@mui/material";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
 import Tracker from "./Tracker";
+import Fab from "@mui/material/Fab";
+import { styled } from "@mui/material/styles";
+import AddIcon from "@mui/icons-material/Add";
+import { useRouteData } from "remix-utils";
+import type { Booking, User } from "@prisma/client";
+import { useFetcher, useLoaderData } from "@remix-run/react";
 
 type Props = {
   children: React.ReactNode;
 };
 
+const StyledFab = styled(Fab)({
+  position: "absolute",
+  zIndex: 1,
+  top: -30,
+  left: 0,
+  right: 0,
+  margin: "0 auto",
+});
+
 const Dashboard: React.FC<Props> = ({ children }) => {
   const theme = useTheme();
+  const user = useLoaderData<Omit<User, "password" | "createdAt">>();
+  console.log(user);
+  const fetcher = useFetcher();
+
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <ThemeProvider theme={theme}>
@@ -62,13 +80,22 @@ const Dashboard: React.FC<Props> = ({ children }) => {
           sx={{ top: "auto", bottom: 0, display: isMobile ? "flex" : "none" }}
         >
           <Toolbar sx={{ display: "flex", justifyContent: "space-around" }}>
-            <IconButton color="inherit">
+            <IconButton color="inherit" sx={{ ml: 3 }}>
               <HomeOutlinedIcon fontSize="large" />
             </IconButton>
-            <IconButton color="inherit">
-              <AccountBalanceWalletOutlinedIcon fontSize="large" />
-            </IconButton>
-
+            <StyledFab
+              color="secondary"
+              aria-label="add"
+              onClick={() => {
+                fetcher.submit(
+                  { userId: user.id },
+                  { method: "post", action: "/dashboard/latestBooking" }
+                );
+              }}
+            >
+              <AddIcon />
+            </StyledFab>
+            <Box flexGrow={1} />
             <IconButton color="inherit">
               <FmdGoodOutlinedIcon fontSize="large" />
             </IconButton>

@@ -22,16 +22,17 @@ model User {
 }
 
 model Booking {
-  id          String    @id @default(cuid())
-  start_city  String?   @db.VarChar(100)
-  destination String?   @db.VarChar(100)
-  session     Session?  @default(MORNING)
-  price       Decimal?  @db.Decimal(4, 2)
+  id          String   @id @default(cuid())
+  start_city  String?  @db.VarChar(100)
+  destination String?  @db.VarChar(100)
+  session     Session? @default(MORNING)
+  price       Decimal? @db.Decimal(4, 2)
   seats       Json?
-  date        DateTime?
-  paid        Boolean   @default(false)
-  user        User      @relation(fields: [userId], references: [id])
-  userId      String    @unique
+  date        DateTime @default(now())
+  paid        Boolean  @default(false)
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+
 
   @@index([userId])
 }

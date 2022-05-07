@@ -21,7 +21,7 @@ export const loginUser = async (credentials: Credentials) => {
     const crosscheckPassword = await bcrypt.compareSync(credentials.password, user.password);
 
     if (crosscheckPassword) {
-        const { password, ...rest } = user;
+        const { password,createdAt, ...rest } = user;
         return rest
     } else {
         throw new Error("Password is Invalid")
