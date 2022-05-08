@@ -1,4 +1,4 @@
-import type { Booking, Prisma, Session, User } from "@prisma/client";
+import type { Booking, Session, User } from "@prisma/client";
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import React from "react";
@@ -49,7 +49,6 @@ export const action: ActionFunction = async ({ request }) => {
       Id = formData.get("Id") as string;
       const seats = formData.getAll("seats") as string[];
       const price = Number(formData.get("price") as string);
-      console.log(typeof price);
       return await updateBooking({ Id, seats, price });
 
     default:

@@ -86,6 +86,7 @@ const Dashboard: React.FC<Props> = ({ children }) => {
             <StyledFab
               color="secondary"
               aria-label="add"
+              defaultValue={data.user.id}
               onClick={() => {
                 fetcher.submit(
                   { userId: data.user.id },
