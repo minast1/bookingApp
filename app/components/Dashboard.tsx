@@ -7,7 +7,6 @@ import IconButton from "@mui/material/IconButton";
 import Container from "@mui/material/Container";
 import AccountMenu from "./AccountMenu";
 import AppBar from "@mui/material/AppBar";
-import { useMediaQuery, useTheme } from "@mui/material";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
@@ -18,6 +17,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { useFetcher, useLoaderData } from "@remix-run/react";
 import type { dataType } from "~/routes/dashboard";
 import type { Booking } from "@prisma/client";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 type Props = {
   children: React.ReactNode;

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
@@ -6,15 +7,25 @@ import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
-import { useOutletContext } from "@remix-run/react";
+import { useFetcher, useNavigate, useOutletContext } from "@remix-run/react";
 import type { dataType } from "../dashboard";
 import { format } from "date-fns";
 import { capitalize } from "@mui/material";
 import type { Prisma } from "@prisma/client";
 import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const PaymentPage = () => {
   const data = useOutletContext<dataType>();
+  const fetcher = useFetcher();
+  const cancelFetcher = useFetcher();
+  let navigate = useNavigate();
+
+  React.useEffect(() => {
+    cancelFetcher.state === "loading" &&
+      navigate("/dashboard/", { replace: true });
+  }, [cancelFetcher]);
+
   const seats = data.bookings[0].seats as Prisma.JsonArray;
   return (
     <Card sx={{ mb: 10, mt: 3, backgroundColor: "white" }} elevation={15}>
@@ -156,14 +167,42 @@ const PaymentPage = () => {
         <Box display="flex" sx={{ width: "100%" }}>
           <Button
             variant="contained"
+            disabled={data.bookings[0].paid ? true : false}
             size="small"
             sx={{ textTransform: "capitalize" }}
+            onClick={() => {
+              const formData = new FormData();
+              formData.append("button", "payment");
+              formData.append("Id", data.bookings[0].id);
+              formData.append("paid", JSON.stringify(true));
+              fetcher.submit(formData, {
+                action: "/dashboard",
+                method: "post",
+              });
+            }}
           >
-            Make Payment
+            {fetcher.state === "submitting" ? (
+              <CircularProgress color="inherit" size={20} />
+            ) : data.bookings[0].paid ? (
+              "Paid"
+            ) : (
+              "Make Payment"
+            )}
           </Button>
           <Box flexGrow={1} />
           <Button
             variant="contained"
+            onClick={() => {
+              const formData = new FormData();
+              formData.append("button", "cancel");
+              formData.append("Id", data.bookings[0].id);
+              cancelFetcher.submit(formData, {
+                action: "/dashboard",
+                method: "post",
+              });
+
+              //Delete the booking and navigate back to the homme page
+            }}
             size="small"
             color="error"
             sx={{ textTransform: "capitalize" }}

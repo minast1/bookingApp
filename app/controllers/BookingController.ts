@@ -56,3 +56,11 @@ export const getCurrentBooking = async () => {
     });
     return booking
 }
+
+export const deleteCurrentBooking = async (Id: string) => {
+    const booking = await db.booking.delete({
+        where: { id: Id },
+        select : {id : true}
+    });
+    return booking;
+}

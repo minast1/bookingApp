@@ -4,6 +4,7 @@ import { Outlet, useLoaderData } from "@remix-run/react";
 import React from "react";
 import Dashboard from "~/components/Dashboard";
 import {
+  deleteCurrentBooking,
   getCurrentBooking,
   updateBooking,
 } from "~/controllers/BookingController";
@@ -50,7 +51,13 @@ export const action: ActionFunction = async ({ request }) => {
       const seats = formData.getAll("seats") as string[];
       const price = Number(formData.get("price") as string);
       return await updateBooking({ Id, seats, price });
-
+    case "payment":
+      Id = formData.get("Id") as string;
+      const paid = JSON.parse(formData.get("paid") as string);
+      return await updateBooking({ Id, paid });
+    case "cancel":
+      Id = formData.get("Id") as string;
+      return await deleteCurrentBooking(Id);
     default:
       return await authenticator.logout(request, { redirectTo: "/" });
   }
