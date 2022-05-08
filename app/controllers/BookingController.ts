@@ -1,5 +1,4 @@
 import type {  Session } from "@prisma/client";
-import type { Decimal } from "@prisma/client/runtime";
 //import invariant from "tiny-invariant";
 import { db } from "~/lib/db.server";
 
@@ -26,7 +25,7 @@ type updateTypes = {
     destination?: string
     date?: Date 
     seats?: string[]
-    price?: Decimal
+    price?: number
     session?: Session
     paid?: boolean
 }

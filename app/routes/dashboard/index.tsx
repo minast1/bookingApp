@@ -12,12 +12,11 @@ import { FormInputDate } from "~/components/FormInputDate";
 import SubmitButton from "~/components/SubmitButton";
 import { bookingValidator } from "~/lib/validatorSchema";
 import { ValidatedForm } from "remix-validated-form";
-import Paper from "@mui/material/Paper";
 import { FormInputDropdown } from "~/components/FormInputDropdown";
 import { useOutletContext } from "@remix-run/react";
 import type { dataType } from "../dashboard";
-import { useActionData, useNavigate } from "@remix-run/react";
-//import { getSession } from "~/lib/session.server";
+import { useNavigate } from "@remix-run/react";
+import Paper from "@mui/material/Paper";
 
 const sessions = [
   { label: "Morning", value: "MORNING" },
@@ -26,12 +25,16 @@ const sessions = [
 ];
 const IndexPage = () => {
   const data = useOutletContext<dataType>();
+  //const bookings = data.bookings;
   const navigate = useNavigate();
-  const confirmReservation = useActionData();
+  //const confirmReservation = useActionData();
 
   React.useEffect(() => {
-    confirmReservation && navigate("/dashboard/selectSeats", { replace: true });
-  }, [confirmReservation]);
+    if (data.bookings && data.bookings.length) {
+      data.bookings[0].start_city &&
+        navigate("/dashboard/selectSeats", { replace: true });
+    }
+  }, [data.bookings]);
 
   return (
     <>
@@ -78,7 +81,6 @@ const IndexPage = () => {
         </CardContent>
         <CardActions disableSpacing></CardActions>
       </Card>
-
       <Paper
         square
         sx={{

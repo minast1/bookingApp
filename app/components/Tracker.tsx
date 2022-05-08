@@ -83,13 +83,14 @@ const Tracker = ({ booking }: { booking: Booking }) => {
   //React.useEffect(() => {}, [booking]);
 
   const getActiveStep = (booking: Booking): number => {
-    const { start_city, seats, paid } = booking;
-    return start_city
-      ? 0
+    const { start_city, paid, seats } = booking;
+    //const seats = booking.seats as Prisma.JsonArray;
+    return seats && paid && start_city
+      ? 2
       : seats && start_city
       ? 1
-      : seats && paid && start_city
-      ? 2
+      : start_city
+      ? 0
       : -1;
   };
 

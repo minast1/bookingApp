@@ -26,7 +26,7 @@ model Booking {
   start_city  String?  @db.VarChar(100)
   destination String?  @db.VarChar(100)
   session     Session? @default(MORNING)
-  price       Decimal? @db.Decimal(4, 2)
+  price       Int?
   seats       Json?
   date        DateTime @default(now())
   paid        Boolean  @default(false)
