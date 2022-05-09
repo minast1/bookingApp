@@ -14,13 +14,7 @@ import Tracker from "./Tracker";
 import Fab from "@mui/material/Fab";
 import { styled } from "@mui/material/styles";
 import AddIcon from "@mui/icons-material/Add";
-import {
-  Link,
-  NavLink,
-  useFetcher,
-  useLoaderData,
-  useLocation,
-} from "@remix-run/react";
+import { Link, useFetcher, useLoaderData, useLocation } from "@remix-run/react";
 import type { dataType } from "~/routes/dashboard";
 import type { Booking } from "@prisma/client";
 import { Button, useMediaQuery, useTheme } from "@mui/material";
@@ -48,6 +42,7 @@ const Dashboard: React.FC<Props> = ({ children }) => {
   const fetcher = useFetcher();
   const location = useLocation();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const paidTickets = data.tickets.filter((el) => el.paid === true);
 
   return (
     <ThemeProvider theme={theme}>
@@ -179,7 +174,14 @@ const Dashboard: React.FC<Props> = ({ children }) => {
               to="/dashboard/receipt"
               prefetch="intent"
             >
-              <Badge badgeContent={data.tickets.length} color="error">
+              <Badge
+                badgeContent={
+                  location.pathname === "/dashboard/receipt"
+                    ? 0
+                    : paidTickets.length
+                }
+                color="error"
+              >
                 <ReceiptIcon fontSize="large" />
               </Badge>
             </IconButton>

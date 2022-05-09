@@ -27,7 +27,7 @@ const AddRoutePage = () => {
 
   return (
     <>
-      <Card sx={{ mb: 5, mt: 3, backgroundColor: "white" }} elevation={15}>
+      <Card sx={{ mb: 5, mt: 3, backgroundColor: "white" }} elevation={1}>
         <Box display="flex" alignItems="center" ml={2} mt={2}>
           <Typography sx={{ fontWeight: "bold" }}>
             Please Provide the Route Details
@@ -74,10 +74,10 @@ const AddRoutePage = () => {
       <Paper
         square
         sx={{
-          //backgroundImage: "url(/vip.jpg)",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
+          backgroundImage: "url(/u5.jpg)",
+          //backgroundPosition: "center",
+          backgroundRepeat: "repeat",
+          backgroundSize: "contain",
           background:
             'linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/vip.jpg")',
           height: 150,
