@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -14,7 +15,12 @@ import Tracker from "./Tracker";
 import Fab from "@mui/material/Fab";
 import { styled } from "@mui/material/styles";
 import AddIcon from "@mui/icons-material/Add";
-import { useFetcher, useLoaderData } from "@remix-run/react";
+import {
+  useFetcher,
+  useLoaderData,
+  useLocation,
+  useNavigate,
+} from "@remix-run/react";
 import type { dataType } from "~/routes/dashboard";
 import type { Booking } from "@prisma/client";
 import { useMediaQuery, useTheme } from "@mui/material";
@@ -37,7 +43,13 @@ const Dashboard: React.FC<Props> = ({ children }) => {
   const data = useLoaderData<dataType>();
   const currentBooking: Booking | null = data.bookings && data.bookings[0];
   const fetcher = useFetcher();
+  const navigate = useNavigate();
+  const location = useLocation();
 
+  /*React.useEffect(() => {
+    fetcher.state === "submitting" &&
+      navigate("/dashboard/addRoute", { replace: true });
+  }, [fetcher]);*/
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <ThemeProvider theme={theme}>
@@ -85,13 +97,19 @@ const Dashboard: React.FC<Props> = ({ children }) => {
             </IconButton>
             <StyledFab
               color="secondary"
-              aria-label="add"
-              defaultValue={data.user.id}
+              disabled={
+                location.pathname === "/dashboard/addRoute" ||
+                location.pathname === "/dashboard/selectSeats"
+                  ? true
+                  : false
+              }
               onClick={() => {
-                fetcher.submit(
-                  { userId: data.user.id },
-                  { method: "post", action: "/dashboard/latestBooking" }
-                );
+                const formData = new FormData();
+                formData.append("userId", data.user.id);
+                fetcher.submit(formData, {
+                  method: "post",
+                  action: "/dashboard/latestBooking",
+                });
               }}
             >
               <AddIcon />

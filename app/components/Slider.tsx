@@ -7,26 +7,33 @@ const Slider = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <NoSsr>
-      <Carousel dynamicHeight={false} infiniteLoop showThumbs={false} autoPlay>
+      <Carousel infiniteLoop showThumbs={false} autoPlay>
+        <div>
+          <img
+            src="/bus1.jpg"
+            alt=""
+            style={{ height: isMobile ? 250 : 350, objectFit: "cover" }}
+          />
+        </div>
         <div>
           <img
             src="/u2.jpg"
             alt=""
-            style={{ height: isMobile ? 200 : 350, objectFit: "cover" }}
+            style={{ height: isMobile ? 250 : 350, objectFit: "cover" }}
           />
         </div>
         <div>
           <img
             src="/u5.jpg"
             alt=""
-            style={{ height: isMobile ? 200 : 350, objectFit: "cover" }}
+            style={{ height: isMobile ? 250 : 350, objectFit: "cover" }}
           />
         </div>
         <div>
           <img
             src="/u4.jpg"
             alt=""
-            style={{ height: isMobile ? 200 : 350, objectFit: "cover" }}
+            style={{ height: isMobile ? 250 : 350, objectFit: "cover" }}
           />
         </div>
       </Carousel>

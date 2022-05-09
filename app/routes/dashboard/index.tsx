@@ -2,32 +2,42 @@
 import React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useMediaQuery, useTheme } from "@mui/material";
-import { useOutletContext } from "@remix-run/react";
-import type { dataType } from "../dashboard";
-import { useNavigate } from "@remix-run/react";
-import Paper from "@mui/material/Paper";
+import { useNavigate, useOutletContext } from "@remix-run/react";
 import styles from "~/styles/carousel.min.css";
 import Slider from "~/components/Slider";
-import Alert from "@mui/material/Alert";
+import toast, { Toaster } from "react-hot-toast";
+import { ToastAlert } from "~/components/ToastAlert";
+import type { dataType } from "../dashboard";
 
 const IndexPage = () => {
-  //const data = useOutletContext<dataType>();
+  // const navigate = useNavigate();
+  const data = useOutletContext<dataType>();
+  // const theme = useTheme();
+  //const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  //const bookings = data.bookings;
-  //const navigate = useNavigate();
-  //const confirmReservation = useActionData();
+  React.useEffect(() => {
+    toast.custom(
+      <ToastAlert severity="success">
+        Welcome Back! {data.user.name}.. Click on the Action Button to Begin
+        Your Booking Process`
+      </ToastAlert>,
+      {
+        position: "top-right",
+        duration: 7000,
+      }
+    );
+  }, [data.user]);
 
   return (
     <>
       <Slider />
-      <Card sx={{ mb: 5, mt: 2, backgroundColor: "white" }} elevation={15}>
+      <Card sx={{ mb: 2, mt: 2, backgroundColor: "white" }} elevation={15}>
         <Box display="flex" alignItems="center" ml={2} mt={2}>
-          <Typography variant="body1">Where do You Want to go...?</Typography>
+          <Typography variant="h6">Where do You Want to go...?</Typography>
           <Box flexGrow={1} />
         </Box>
 
@@ -43,7 +53,7 @@ const IndexPage = () => {
             referrerPolicy="no-referrer-when-downgrade"
           ></iframe>
         </CardContent>
-        <CardActions disableSpacing></CardActions>
+        <Toaster containerStyle={{ marginTop: 5 }} />
       </Card>
     </>
   );

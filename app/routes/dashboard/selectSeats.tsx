@@ -31,11 +31,11 @@ const SelectSeatsPage = () => {
   const fetcher = useFetcher();
   const navigate = useNavigate();
 
-  React.useEffect(() => {
+  /*React.useEffect(() => {
     if (fetcher.type === "done") {
       navigate("/dashboard/makePayment", { replace: true });
     }
-  }, [fetcher]);
+  }, [fetcher]);*/
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {

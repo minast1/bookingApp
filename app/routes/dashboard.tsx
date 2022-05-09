@@ -1,5 +1,5 @@
 import type { Booking, Session, User } from "@prisma/client";
-import type { ActionFunction, LoaderFunction } from "@remix-run/node";
+import { ActionFunction, LoaderFunction, redirect } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import React from "react";
 import Dashboard from "~/components/Dashboard";
@@ -39,18 +39,20 @@ export const action: ActionFunction = async ({ request }) => {
       const session = formData.get("session") as Session;
       Id = formData.get("Id") as string;
 
-      return await updateBooking({
+      await updateBooking({
         start_city,
         destination,
         date,
         session,
         Id,
       });
+      return redirect("/dashboard/selectSeats");
     case "seats":
       Id = formData.get("Id") as string;
       const seats = formData.getAll("seats") as string[];
       const price = Number(formData.get("price") as string);
-      return await updateBooking({ Id, seats, price });
+      await updateBooking({ Id, seats, price });
+      return redirect("/dashboard/makePayment");
     case "payment":
       Id = formData.get("Id") as string;
       const paid = JSON.parse(formData.get("paid") as string);

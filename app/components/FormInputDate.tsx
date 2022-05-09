@@ -2,7 +2,7 @@ import React from "react";
 import DateAdapter from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DatePicker from "@mui/lab/DatePicker";
-import TextField, { TextFieldProps } from "@mui/material/TextField";
+import TextField, { type TextFieldProps } from "@mui/material/TextField";
 import { useField } from "remix-validated-form";
 
 export const FormInputDate = ({ name, label, ...props }: TextFieldProps) => {

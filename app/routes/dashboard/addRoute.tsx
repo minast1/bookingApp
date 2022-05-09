@@ -29,12 +29,12 @@ const AddRoutePage = () => {
   const navigate = useNavigate();
   //const confirmReservation = useActionData();
 
-  React.useEffect(() => {
-    if (data.bookings && data.bookings.length) {
-      data.bookings[0].start_city &&
-        navigate("/dashboard/selectSeats", { replace: true });
-    }
-  }, [data.bookings]);
+  /*React.useEffect(() => {
+    data.bookings[0].start_city &&
+      navigate("/dashboard/selectSeats", {
+        replace: true,
+      });
+  }, [data.bookings[0]]);*/
 
   return (
     <>
@@ -49,6 +49,7 @@ const AddRoutePage = () => {
 
         <CardContent sx={{ borderTop: "1px solid lightgray" }}>
           <ValidatedForm
+            onSubmit={() => {}}
             method="post"
             action="/dashboard"
             defaultValues={{ session: "MORNING" }}
