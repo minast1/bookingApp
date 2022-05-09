@@ -64,3 +64,24 @@ export const registerNewUser =async (formData: UserFormData) => {
     return newUser
 }
 
+type updateType = {
+    Id: string
+    name: string
+    email: string,
+    mobile: string 
+}
+export const updateUser = async (formData: updateType) => {
+    const { Id, name, email, mobile } = formData; 
+    const user = await db.user.update({
+        where: {
+            id: Id
+        },
+        data: {
+            email: email,
+            name: name,
+            mobile: mobile
+        }
+    });
+    return user;
+}
+

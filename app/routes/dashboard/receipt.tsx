@@ -25,7 +25,7 @@ const ReceiptPage = () => {
   return (
     <>
       <Slider />
-      <Card sx={{ mb: 5, mt: 3, backgroundColor: "white" }} elevation={15}>
+      <Card sx={{ mb: 5, mt: 3, backgroundColor: "white" }} elevation={0}>
         <Box display="flex" alignItems="center" ml={2} mt={2}>
           <Typography sx={{ fontWeight: "bold" }}>
             Booking Recipts History
