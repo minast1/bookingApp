@@ -1,5 +1,9 @@
 import type { Booking, Session, User } from "@prisma/client";
-import { ActionFunction, LoaderFunction, redirect } from "@remix-run/node";
+import {
+  type ActionFunction,
+  type LoaderFunction,
+  redirect,
+} from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import React from "react";
 import Dashboard from "~/components/Dashboard";

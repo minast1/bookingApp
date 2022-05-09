@@ -5,7 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { useFetcher, useNavigate, useOutletContext } from "@remix-run/react";
+import { useFetcher, useOutletContext } from "@remix-run/react";
 import type { dataType } from "../dashboard";
 import type { Session } from "@prisma/client";
 import { format } from "date-fns";
@@ -29,7 +29,6 @@ const SelectSeatsPage = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const fetcher = useFetcher();
-  const navigate = useNavigate();
 
   /*React.useEffect(() => {
     if (fetcher.type === "done") {

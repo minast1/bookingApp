@@ -15,12 +15,7 @@ import Tracker from "./Tracker";
 import Fab from "@mui/material/Fab";
 import { styled } from "@mui/material/styles";
 import AddIcon from "@mui/icons-material/Add";
-import {
-  useFetcher,
-  useLoaderData,
-  useLocation,
-  useNavigate,
-} from "@remix-run/react";
+import { useFetcher, useLoaderData, useLocation } from "@remix-run/react";
 import type { dataType } from "~/routes/dashboard";
 import type { Booking } from "@prisma/client";
 import { useMediaQuery, useTheme } from "@mui/material";
@@ -43,13 +38,8 @@ const Dashboard: React.FC<Props> = ({ children }) => {
   const data = useLoaderData<dataType>();
   const currentBooking: Booking | null = data.bookings && data.bookings[0];
   const fetcher = useFetcher();
-  const navigate = useNavigate();
   const location = useLocation();
 
-  /*React.useEffect(() => {
-    fetcher.state === "submitting" &&
-      navigate("/dashboard/addRoute", { replace: true });
-  }, [fetcher]);*/
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <ThemeProvider theme={theme}>

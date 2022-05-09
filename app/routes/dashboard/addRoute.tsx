@@ -15,7 +15,6 @@ import { ValidatedForm } from "remix-validated-form";
 import { FormInputDropdown } from "~/components/FormInputDropdown";
 import { useOutletContext } from "@remix-run/react";
 import type { dataType } from "../dashboard";
-import { useNavigate } from "@remix-run/react";
 import Paper from "@mui/material/Paper";
 
 const sessions = [
@@ -25,16 +24,6 @@ const sessions = [
 ];
 const AddRoutePage = () => {
   const data = useOutletContext<dataType>();
-  //const bookings = data.bookings;
-  const navigate = useNavigate();
-  //const confirmReservation = useActionData();
-
-  /*React.useEffect(() => {
-    data.bookings[0].start_city &&
-      navigate("/dashboard/selectSeats", {
-        replace: true,
-      });
-  }, [data.bookings[0]]);*/
 
   return (
     <>

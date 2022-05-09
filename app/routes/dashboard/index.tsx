@@ -6,7 +6,7 @@ import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useMediaQuery, useTheme } from "@mui/material";
-import { useNavigate, useOutletContext } from "@remix-run/react";
+import { useOutletContext } from "@remix-run/react";
 import styles from "~/styles/carousel.min.css";
 import Slider from "~/components/Slider";
 import toast, { Toaster } from "react-hot-toast";
