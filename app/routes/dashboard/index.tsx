@@ -23,7 +23,7 @@ const IndexPage = () => {
     toast.custom(
       <ToastAlert severity="success">
         Welcome Back! {data.user.name}.. Click on the Action Button to Begin
-        Your Booking Process`
+        Your Booking Process
       </ToastAlert>,
       {
         position: "top-right",

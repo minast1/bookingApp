@@ -10,15 +10,15 @@ import AccountMenu from "./AccountMenu";
 import AppBar from "@mui/material/AppBar";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
 import Tracker from "./Tracker";
 import Fab from "@mui/material/Fab";
 import { styled } from "@mui/material/styles";
 import AddIcon from "@mui/icons-material/Add";
-import { useFetcher, useLoaderData, useLocation } from "@remix-run/react";
+import { Link, useFetcher, useLoaderData, useLocation } from "@remix-run/react";
 import type { dataType } from "~/routes/dashboard";
 import type { Booking } from "@prisma/client";
 import { useMediaQuery, useTheme } from "@mui/material";
+import ReceiptIcon from "@mui/icons-material/Receipt";
 
 type Props = {
   children: React.ReactNode;
@@ -39,7 +39,6 @@ const Dashboard: React.FC<Props> = ({ children }) => {
   const currentBooking: Booking | null = data.bookings && data.bookings[0];
   const fetcher = useFetcher();
   const location = useLocation();
-
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <ThemeProvider theme={theme}>
@@ -72,7 +71,11 @@ const Dashboard: React.FC<Props> = ({ children }) => {
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4 }}>
-            {currentBooking && <Tracker booking={currentBooking} />}
+            {(location.pathname === `/dashboard/addRoute` ||
+              location.pathname === `/dashboard/selectSeats` ||
+              location.pathname === "/dashboard/makePayment") && (
+              <Tracker booking={currentBooking} />
+            )}
             {children}
           </Container>
         </Box>
@@ -82,14 +85,20 @@ const Dashboard: React.FC<Props> = ({ children }) => {
           sx={{ top: "auto", bottom: 0, display: isMobile ? "flex" : "none" }}
         >
           <Toolbar sx={{ display: "flex", justifyContent: "space-around" }}>
-            <IconButton color="inherit" sx={{ ml: 3 }}>
+            <IconButton
+              component={Link}
+              to="/dashboard/"
+              color="inherit"
+              sx={{ ml: 3 }}
+            >
               <HomeOutlinedIcon fontSize="large" />
             </IconButton>
             <StyledFab
               color="secondary"
               disabled={
                 location.pathname === "/dashboard/addRoute" ||
-                location.pathname === "/dashboard/selectSeats"
+                location.pathname === "/dashboard/selectSeats" ||
+                location.pathname === "/dashboard/makePayment"
                   ? true
                   : false
               }
@@ -105,8 +114,13 @@ const Dashboard: React.FC<Props> = ({ children }) => {
               <AddIcon />
             </StyledFab>
             <Box flexGrow={1} />
-            <IconButton color="inherit">
-              <FmdGoodOutlinedIcon fontSize="large" />
+            <IconButton
+              color="inherit"
+              component={Link}
+              to="/dashboard/receipt"
+              prefetch="intent"
+            >
+              <ReceiptIcon fontSize="large" />
             </IconButton>
             <IconButton color="inherit">
               <SettingsOutlinedIcon fontSize="large" />
