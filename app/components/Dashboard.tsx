@@ -133,7 +133,7 @@ const Dashboard: React.FC<Props> = ({ children }) => {
           </Container>
         </Box>
         <AppBar
-          position="fixed"
+          //position="sticky"
           color="inherit"
           sx={{ top: "auto", bottom: 0, display: isMobile ? "flex" : "none" }}
         >
