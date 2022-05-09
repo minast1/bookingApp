@@ -4,7 +4,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import DepartureBoardOutlinedIcon from "@mui/icons-material/DepartureBoardOutlined";
-import type { ActionFunction, LoaderFunction } from "@remix-run/node";
+import type { ActionFunction } from "@remix-run/node";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { FormInputText } from "~/components/FormInputText";

@@ -19,6 +19,7 @@ import type { dataType } from "~/routes/dashboard";
 import type { Booking } from "@prisma/client";
 import { useMediaQuery, useTheme } from "@mui/material";
 import ReceiptIcon from "@mui/icons-material/Receipt";
+import Badge from "@mui/material/Badge";
 
 type Props = {
   children: React.ReactNode;
@@ -88,6 +89,7 @@ const Dashboard: React.FC<Props> = ({ children }) => {
             <IconButton
               component={Link}
               to="/dashboard/"
+              prefetch="render"
               color="inherit"
               sx={{ ml: 3 }}
             >
@@ -120,9 +122,15 @@ const Dashboard: React.FC<Props> = ({ children }) => {
               to="/dashboard/receipt"
               prefetch="intent"
             >
-              <ReceiptIcon fontSize="large" />
+              <Badge badgeContent={data.tickets.length} color="error">
+                <ReceiptIcon fontSize="large" />
+              </Badge>
             </IconButton>
-            <IconButton color="inherit">
+            <IconButton
+              color="inherit"
+              component={Link}
+              to="/dashboard/profile"
+            >
               <SettingsOutlinedIcon fontSize="large" />
             </IconButton>
           </Toolbar>

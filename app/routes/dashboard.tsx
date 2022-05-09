@@ -9,6 +9,7 @@ import React from "react";
 import Dashboard from "~/components/Dashboard";
 import {
   deleteCurrentBooking,
+  getAllBookings,
   getCurrentBooking,
   updateBooking,
 } from "~/controllers/BookingController";
@@ -19,6 +20,7 @@ export type userType = Omit<User, "password" | "createdAt">;
 export type dataType = {
   user: userType;
   bookings: Booking[];
+  tickets: Booking[];
 };
 const DashboardLayout = () => {
   const data = useLoaderData<dataType>();
@@ -77,5 +79,6 @@ export const loader: LoaderFunction = async ({ request }) => {
   });
 
   const bookings = user && (await getCurrentBooking());
-  return { user: user, bookings: bookings };
+  const tickets = user && (await getAllBookings());
+  return { user: user, bookings: bookings, tickets: tickets };
 };

@@ -21,6 +21,14 @@ export const registerValidatior = withZod(
     path: ["confirm"]
   })
 )
+
+export const profileValidator = withZod(
+  z.object({
+     name: z.string().nonempty("* This field is required"),
+    email: z.string().nonempty("* This field is required").email({ message: "Please enter a valid email address" }),
+     mobile: z.string().nonempty("* This field is required")
+  })
+)
  const courts = ["HIGH_COURT", "SUPREME_COURT", "NOTASSIGNED"] as const
 export const criminalValidator = withZod(
   z.object({
