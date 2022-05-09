@@ -57,6 +57,15 @@ export const getCurrentBooking = async () => {
     return booking
 }
 
+export const getAllBookings = async () => {
+    const bookings = await db.booking.findMany({
+        orderBy: {
+            id: 'desc'
+        }
+    });
+    return bookings; 
+}
+
 export const deleteCurrentBooking = async (Id: string) => {
     const booking = await db.booking.delete({
         where: { id: Id },

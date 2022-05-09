@@ -63,7 +63,8 @@ export const action: ActionFunction = async ({ request }) => {
       return await updateBooking({ Id, paid });
     case "cancel":
       Id = formData.get("Id") as string;
-      return await deleteCurrentBooking(Id);
+      await deleteCurrentBooking(Id);
+      return redirect("/dashboard/");
     default:
       return await authenticator.logout(request, { redirectTo: "/" });
   }

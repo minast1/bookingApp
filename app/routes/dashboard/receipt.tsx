@@ -1,7 +1,59 @@
+import { Receipt } from "./../../components/Receipt";
 import React from "react";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import ReceiptIcon from "@mui/icons-material/Receipt";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import Divider from "@mui/material/Divider";
+import { useLoaderData } from "@remix-run/react";
+import type { LoaderFunction } from "@remix-run/node";
+import { getAllBookings } from "~/controllers/BookingController";
+import type { Booking } from "@prisma/client";
 
-const Receipt = () => {
-  return <div>I am the reciept page</div>;
+const ReceiptPage = () => {
+  const data = useLoaderData<Booking[]>();
+  return (
+    <Card sx={{ mb: 5, mt: 3, backgroundColor: "white" }} elevation={15}>
+      <Box display="flex" alignItems="center" ml={2} mt={2}>
+        <Typography sx={{ fontWeight: "bold" }}>
+          Booking Recipts History
+        </Typography>
+        <Box flexGrow={1} />
+        <ReceiptIcon fontSize="large" sx={{ mr: 3, mb: 2 }} />
+      </Box>
+
+      <CardContent sx={{ borderTop: "1px solid lightgray" }}>
+        {data.length ? (
+          <List component="nav">
+            {data.map((el) => (
+              <div key={el.id}>
+                <ListItem>
+                  <Receipt
+                    date={el.date}
+                    from={el.start_city as string}
+                    destination={el.destination as string}
+                    status={el.paid}
+                  />
+                </ListItem>
+                <Divider />
+              </div>
+            ))}
+          </List>
+        ) : (
+          <img src="/not_found.png" style={{ height: 100 }} alt="" />
+        )}
+      </CardContent>
+      <CardActions disableSpacing></CardActions>
+    </Card>
+  );
 };
 
-export default Receipt;
+export default ReceiptPage;
+
+export let loader: LoaderFunction = async ({ request }) => {
+  return await getAllBookings();
+};

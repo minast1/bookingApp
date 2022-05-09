@@ -7,7 +7,7 @@ import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
-import { useFetcher, useNavigate, useOutletContext } from "@remix-run/react";
+import { useFetcher, useOutletContext } from "@remix-run/react";
 import type { dataType } from "../dashboard";
 import { format } from "date-fns";
 import { capitalize } from "@mui/material";
@@ -19,12 +19,6 @@ const PaymentPage = () => {
   const data = useOutletContext<dataType>();
   const fetcher = useFetcher();
   const cancelFetcher = useFetcher();
-  let navigate = useNavigate();
-
-  React.useEffect(() => {
-    cancelFetcher.state === "loading" &&
-      navigate("/dashboard/", { replace: true });
-  }, [cancelFetcher]);
 
   const seats = data.bookings[0].seats as Prisma.JsonArray;
   return (

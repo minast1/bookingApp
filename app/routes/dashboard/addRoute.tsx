@@ -106,13 +106,6 @@ const AddRoutePage = () => {
 
 export default AddRoutePage;
 
-export let loader: LoaderFunction = async ({ request }) => {
-  //const session = await getSession(request.headers.get("cookie"));
-  //const user = session.get("user");
-
-  return null;
-};
-
 export let action: ActionFunction = async ({ request }) => {
   return null;
 };
