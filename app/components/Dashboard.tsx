@@ -14,12 +14,19 @@ import Tracker from "./Tracker";
 import Fab from "@mui/material/Fab";
 import { styled } from "@mui/material/styles";
 import AddIcon from "@mui/icons-material/Add";
-import { Link, useFetcher, useLoaderData, useLocation } from "@remix-run/react";
+import {
+  Link,
+  NavLink,
+  useFetcher,
+  useLoaderData,
+  useLocation,
+} from "@remix-run/react";
 import type { dataType } from "~/routes/dashboard";
 import type { Booking } from "@prisma/client";
-import { useMediaQuery, useTheme } from "@mui/material";
+import { Button, useMediaQuery, useTheme } from "@mui/material";
 import ReceiptIcon from "@mui/icons-material/Receipt";
 import Badge from "@mui/material/Badge";
+import Stack from "@mui/material/Stack";
 
 type Props = {
   children: React.ReactNode;
@@ -41,12 +48,62 @@ const Dashboard: React.FC<Props> = ({ children }) => {
   const fetcher = useFetcher();
   const location = useLocation();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar>
           <Toolbar>
+            <Stack
+              direction="row"
+              spacing={1}
+              sx={{ display: isMobile ? "none" : "flex" }}
+            >
+              <Button
+                disableElevation
+                size="small"
+                variant="contained"
+                color="warning"
+                onClick={() => {
+                  const formData = new FormData();
+                  formData.append("userId", data.user.id);
+                  fetcher.submit(formData, {
+                    method: "post",
+                    action: "/dashboard/latestBooking",
+                  });
+                }}
+              >
+                Start Booking Now
+              </Button>
+              <Button
+                variant="contained"
+                disableElevation
+                size="small"
+                component={Link}
+                to="/dashboard/"
+              >
+                Home
+              </Button>
+              <Button
+                variant="contained"
+                disableElevation
+                size="small"
+                component={Link}
+                to="/dashboard/profile"
+              >
+                Profile
+              </Button>
+              <Button
+                variant="contained"
+                disableElevation
+                size="small"
+                component={Link}
+                to="/dashboard/receipt"
+              >
+                Receipts
+              </Button>
+            </Stack>
             <Box
               sx={{
                 flexGrow: 1,

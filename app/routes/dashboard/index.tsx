@@ -5,7 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { useMediaQuery, useTheme } from "@mui/material";
+//import { useMediaQuery, useTheme } from "@mui/material";
 import { useOutletContext } from "@remix-run/react";
 import styles from "~/styles/carousel.min.css";
 import Slider from "~/components/Slider";
