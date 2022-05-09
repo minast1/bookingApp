@@ -14,8 +14,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <Box sx={{ width: "100%" }} display="flex" alignItems="center">
             <img
               style={{
-                height: isMobile ? 300 : 400,
-                width: isMobile ? 700 : 700,
+                height: isMobile ? 200 : 400,
+                width: isMobile ? 500 : 700,
                 objectFit: "contain",
               }}
               src="/travel.png"
