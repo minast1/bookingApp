@@ -156,6 +156,9 @@ const PaymentPage = () => {
           </Stack>{" "}
           {/**Second column */}
         </Box>
+        <Box display="flex" alignItems="center" justifyContent="center">
+          <img alt="" width={300} height={100} src="/barcode.jpg" />
+        </Box>
       </CardContent>
       <CardActions disableSpacing>
         <Box display="flex" sx={{ width: "100%" }}>
