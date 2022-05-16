@@ -22,7 +22,7 @@ const ProfilePage = () => {
           mb: 2,
           mt: 5,
         }}
-        elevation={0}
+        variant="outlined"
       >
         <Grid container spacing={2}>
           <Grid item xs={12} md={5}>

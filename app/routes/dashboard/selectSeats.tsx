@@ -49,7 +49,7 @@ const SelectSeatsPage = () => {
   return (
     <Card
       sx={{ mb: isMobile ? 12 : 5, mt: 2, backgroundColor: "white" }}
-      elevation={10}
+      variant="outlined"
     >
       <Box
         display="flex"

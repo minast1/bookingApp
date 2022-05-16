@@ -103,7 +103,7 @@ const Tracker = ({ booking }: { booking: Booking }) => {
         mt: 3,
         mb: 5,
       }}
-      elevation={5}
+      variant="outlined"
     >
       <Stepper
         alternativeLabel

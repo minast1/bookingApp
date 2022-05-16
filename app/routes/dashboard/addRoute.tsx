@@ -27,7 +27,7 @@ const AddRoutePage = () => {
 
   return (
     <>
-      <Card sx={{ mb: 5, mt: 3, backgroundColor: "white" }} elevation={1}>
+      <Card sx={{ mb: 5, mt: 3, backgroundColor: "white" }} variant="outlined">
         <Box display="flex" alignItems="center" ml={2} mt={2}>
           <Typography sx={{ fontWeight: "bold" }}>
             Please Provide the Route Details
@@ -84,7 +84,7 @@ const AddRoutePage = () => {
           mb: 2,
           mt: 5,
         }}
-        elevation={15}
+        variant="outlined"
       >
         <Box
           display="flex"

@@ -22,7 +22,7 @@ const PaymentPage = () => {
 
   const seats = data.bookings[0].seats as Prisma.JsonArray;
   return (
-    <Card sx={{ mb: 10, mt: 3, backgroundColor: "white" }} elevation={15}>
+    <Card sx={{ mb: 10, mt: 3, backgroundColor: "white" }} variant="outlined">
       <Box
         display="flex"
         alignItems="center"
