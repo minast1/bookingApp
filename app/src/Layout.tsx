@@ -11,14 +11,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <Container maxWidth="md" sx={{ mt: 15, px: 5, backgroundColor: "white" }}>
       <Grid container>
         <Grid item xs={12} sm={12} md={7}>
-          <Box sx={{ width: "100%" }} display="flex" alignItems="center">
+          <Box
+            sx={{ width: "100%", borderRadius: 10 }}
+            display="flex"
+            alignItems="center"
+          >
             <img
               style={{
                 height: isMobile ? 200 : 400,
-                width: isMobile ? 500 : 700,
+                width: isMobile ? 500 : 500,
+
                 objectFit: "contain",
               }}
-              src="/travel.png"
+              src="/bgLogo.jpg"
               alt=""
             />
           </Box>
